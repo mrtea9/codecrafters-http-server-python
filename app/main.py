@@ -21,6 +21,7 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     else:
+        print(endpoint_body)
         response = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
     request.sendall(response)
 
