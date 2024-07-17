@@ -15,7 +15,7 @@ def main():
     endpoint_body = get_body[1].split("/")
     endpoint_string = endpoint_body[2]
     length = len(endpoint_string)
-    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {length}\r\n{endpoint_string}".encode()
+    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {length}\r\n\r\n{endpoint_string}".encode()
     request.sendall(response)
 
 
