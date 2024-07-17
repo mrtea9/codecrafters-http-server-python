@@ -14,6 +14,7 @@ def main():
     get_body = request_body[0].split()
     print(get_body)
     endpoint_body = get_body[1].split("/")
+    print(endpoint_body)
     endpoint_string = endpoint_body[2]
     length = len(endpoint_string)
     response = f"HTTP/1.1 200 OK\r\n" \
