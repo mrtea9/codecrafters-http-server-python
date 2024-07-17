@@ -1,6 +1,9 @@
 # Uncomment this to pass the first stage
 import socket
 
+OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
+NOTFOUND_RESPONSE = "HTTP/1.1 404 Not Found\r\n\r\n".encode()
+
 
 def main():
     # You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -9,8 +12,8 @@ def main():
     # Uncomment this to pass the first stage
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    request = server_socket.accept()[0]
-    request_body = request.recv(2028).decode().split("\r\n")
+    client_socket, _retaddr = server_socket.accept()
+    request_body = client_socket.recv(1024).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
     if endpoint_body[1] == 'echo':
@@ -21,10 +24,10 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     elif endpoint_body[1] == '':
-        response = f"HTTP/1.1 200 OK\r\n\r\n".encode()
+        response = OK_RESPONSE
     else:
-        response = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
-    request.sendall(response)
+        response = NOTFOUND_RESPONSE
+    client_socket.sendall(response)
 
 
 if __name__ == "__main__":
