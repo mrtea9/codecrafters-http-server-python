@@ -23,10 +23,12 @@ def main():
                    f"Content-Type: text/plain\r\n" \
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
+    elif endpoint_body[1] == 'user-agent':
+        print(endpoint_body)
     elif endpoint_body[1] == '':
-        response = f"HTTP/1.1 200 OK\r\n\r\n".encode()
+        response = OK_RESPONSE
     else:
-        response = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
+        response = NOTFOUND_RESPONSE
     request.sendall(response)
 
 
