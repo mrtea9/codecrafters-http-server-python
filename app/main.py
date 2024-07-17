@@ -24,8 +24,7 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     elif endpoint_body[1] == 'user-agent':
-        user_agent_body = request_body[2]
-        print(user_agent_body)
+        user_agent_body = request_body[2].split()
         user_agent_string = user_agent_body[1]
         length = len(user_agent_string)
         response = f"HTTP/1.1 200 OK\r\n" \
