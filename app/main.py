@@ -24,7 +24,7 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     elif endpoint_body[1] == 'user-agent':
-        print(get_body)
+        print(request_body)
     elif endpoint_body[1] == '':
         response = OK_RESPONSE
     else:
