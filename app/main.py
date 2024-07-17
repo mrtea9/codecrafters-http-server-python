@@ -13,13 +13,10 @@ def main():
     request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
-    print(endpoint_body)
-    # if request_target != b'/':
-    #     request.sendall(b"HTTP/1.1 404 Not Found\r\n\r\n")
-    #     print(request_target)
-    # else:
-    #     request.sendall(b"HTTP/1.1 200 OK\r\n\r\n")
-    #     print(request_target)
+    endpoint_string = endpoint_body[2]
+    length = len(endpoint_string)
+    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {length}\r\n{endpoint_string}".encode()
+    request.sendall(response)
 
 
 if __name__ == "__main__":
