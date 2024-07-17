@@ -24,12 +24,18 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     elif endpoint_body[1] == 'user-agent':
-        print(request_body)
+        user_agent_body = request_body[2]
+        user_agent_string = user_agent_body[1]
+        length = len(user_agent_string)
+        response = f"HTTP/1.1 200 OK\r\n" \
+                   f"Content-Type: text/plain\r\n" \
+                   f"Content-Length: {length}\r\n\r\n" \
+                   f"{user_agent_string}".encode()
     elif endpoint_body[1] == '':
         response = OK_RESPONSE
     else:
         response = NOTFOUND_RESPONSE
-    # request.sendall(response)
+    request.sendall(response)
 
 
 if __name__ == "__main__":
