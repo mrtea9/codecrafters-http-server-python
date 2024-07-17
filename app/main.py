@@ -11,7 +11,7 @@ def main():
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
     request_target = request.recv(2028).split()[1]
-    if request_target != '/':
+    if request_target != b'/':
         request.sendall(b"HTTP/1.1 404 Not Found\r\n\r\n")
         print(request_target)
     else:
