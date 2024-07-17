@@ -20,8 +20,9 @@ def main():
                    f"Content-Type: text/plain\r\n" \
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
+    elif endpoint_body[1] == '':
+        response = f"HTTP/1.1 200 OK\r\n\r\n".encode()
     else:
-        print(endpoint_body)
         response = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
     request.sendall(response)
 
