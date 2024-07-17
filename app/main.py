@@ -2,7 +2,7 @@
 import socket
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
-NOTFOUND_RESPONSE = "HTTP/1.1 404 Not Found\r\n\r\n".encode()
+NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 
 
 def main():
@@ -24,9 +24,9 @@ def main():
                    f"Content-Length: {length}\r\n\r\n" \
                    f"{endpoint_string}".encode()
     elif endpoint_body[1] == '':
-        response = OK_RESPONSE
+        response = f"HTTP/1.1 200 OK\r\n\r\n".encode()
     else:
-        response = NOTFOUND_RESPONSE
+        response = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
     request.sendall(response)
 
 
