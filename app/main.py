@@ -12,10 +12,14 @@ def main():
     request = server_socket.accept()[0]
     request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
+    print(get_body)
     endpoint_body = get_body[1].split("/")
     endpoint_string = endpoint_body[2]
     length = len(endpoint_string)
-    response = f"HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: {length}\r\n\r\n{endpoint_string}".encode()
+    response = f"HTTP/1.1 200 OK\r\n" \
+               f"Content-Type: text/plain\r\n" \
+               f"Content-Length: {length}\r\n\r\n" \
+               f"{endpoint_string}".encode()
     request.sendall(response)
 
 
