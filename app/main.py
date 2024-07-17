@@ -13,8 +13,10 @@ def main():
     request_target = request.recv(2028).split()[1]
     if request_target != '/':
         request.sendall(b"HTTP/1.1 404 Not Found\r\n\r\n")
+        print(request_target)
     else:
         request.sendall(b"HTTP/1.1 200 OK\r\n\r\n")
+        print(request_target)
 
 
 if __name__ == "__main__":
