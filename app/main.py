@@ -12,8 +12,8 @@ def main():
     # Uncomment this to pass the first stage
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    client_socket, _retaddr = server_socket.accept()
-    request_body = client_socket.recv(1024).decode().split("\r\n")
+    request = server_socket.accept()[0]
+    request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
     if endpoint_body[1] == 'echo':
@@ -27,7 +27,7 @@ def main():
         response = OK_RESPONSE
     else:
         response = NOTFOUND_RESPONSE
-    client_socket.sendall(response)
+    request.sendall(response)
 
 
 if __name__ == "__main__":
