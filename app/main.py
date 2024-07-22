@@ -31,7 +31,7 @@ def main():
     server_socket.listen()
 
     while True:
-        c, addr = server_socket.accept()[0]
+        c, addr = server_socket.accept()
         print(c)
 
         print_lock.acquire()
