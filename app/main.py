@@ -61,9 +61,11 @@ def handle_client(client_socket, addr):
             if endpoint_body[1] == 'files':
                 endpoint_string = endpoint_body[2]
                 path_file = sys.argv[2] + endpoint_string
+                content = request_body[5]
 
                 print(endpoint_string)
                 print(path_file)
+                print(content)
 
     client_socket.send(response)
     client_socket.close()
