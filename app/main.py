@@ -33,6 +33,8 @@ def main():
 
         print_lock.acquire()
         print('Connected to :', addr[0], ':', addr[1])
+        c.sendall(OK_RESPONSE)
+
         start_new_thread(threaded, (c,))
 
         request_body = c.recv(1024).decode().split("\r\n")
