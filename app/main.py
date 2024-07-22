@@ -55,7 +55,9 @@ def handle_client(client_socket, addr):
             else:
                 response = NOTFOUND_RESPONSE
         elif method == "POST":
+            print(request_body)
             print(method_body)
+            print(endpoint_body)
 
     client_socket.send(response)
     client_socket.close()
