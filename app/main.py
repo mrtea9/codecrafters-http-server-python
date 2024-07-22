@@ -7,10 +7,9 @@ import threading
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
 NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 
-print_lock = threading.Lock()
 
-
-def threaded(c):
+def threaded(c, addr):
+    print(f"Handling new connection from {addr}")
     while True:
         print("Da")
         print(c)
@@ -31,10 +30,10 @@ def main():
     while True:
         c, addr = server_socket.accept()
         print(c)
-
-        print_lock.acquire()
         print('Connected to :', addr[0], ':', addr[1])
-        start_new_thread(threaded, (c,))
+        thread = threading.Thread(target=threaded, args=(c, addr))
+        thread.start()
+        print(threading.active_count() - 1)
 
         request_body = c.recv(1024).decode().split("\r\n")
         get_body = request_body[0].split()
