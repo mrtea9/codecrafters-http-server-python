@@ -35,7 +35,7 @@ def handle_client(client_socket, addr):
                        f"{user_agent_string}".encode()
         elif endpoint_body[1] == 'files':
             endpoint_string = endpoint_body[2]
-            path_file = sys.argv[2]
+            path_file = sys.argv[2] + endpoint_string
             with open(path_file, 'r') as file:
                 content = file.read()
                 print(content)
