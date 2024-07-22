@@ -13,18 +13,9 @@ print_lock = threading.Lock()
 def threaded(c):
     print("Da")
     print(c)
-    while True:
-        print("Da2")
-        data = c.recv(1024).decode()
-        print(data)
-        if not data:
-            print("Bye")
-            print_lock.release()
-            break
-
-        print(data)
-
-    c.close()
+    print("Da2")
+    data = c.recv(2028).decode()
+    print(data)
 
 
 def main():
@@ -33,6 +24,7 @@ def main():
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
+    print(request)
 
     print_lock.acquire()
     start_new_thread(threaded, (request,))
@@ -40,6 +32,7 @@ def main():
     request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
+    print(request_body)
 
     if endpoint_body[1] == 'echo':
         endpoint_string = endpoint_body[2]
