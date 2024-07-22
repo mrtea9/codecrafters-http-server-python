@@ -7,6 +7,7 @@ import os
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
 NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
+CREATED_RESPONSE = "HTTP/1.1 201 Created\r\n\r\n".encode()
 
 
 def handle_client(client_socket, addr):
@@ -55,17 +56,16 @@ def handle_client(client_socket, addr):
             else:
                 response = NOTFOUND_RESPONSE
         elif method == "POST":
-            print(request_body)
-            print(method_body)
-            print(endpoint_body)
+
             if endpoint_body[1] == 'files':
                 endpoint_string = endpoint_body[2]
                 path_file = sys.argv[2] + endpoint_string
                 content = request_body[5]
 
-                print(endpoint_string)
-                print(path_file)
-                print(content)
+                with open(path_file, 'w') as file:
+                    file.write(content)
+
+                response = CREATED_RESPONSE
 
     client_socket.send(response)
     client_socket.close()
