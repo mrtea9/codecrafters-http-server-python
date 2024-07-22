@@ -11,7 +11,7 @@ print_lock = threading.Lock()
 
 
 def threaded(c):
-
+    print("Da")
     while True:
 
         data = c.recv(1024)
