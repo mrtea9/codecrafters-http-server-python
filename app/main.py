@@ -15,7 +15,8 @@ def threaded(c):
     print(c)
     while True:
         print("Da2")
-        data = c.recv(1024)
+        data = c.recv(1024).decode()
+        print(data)
         if not data:
             print("Bye")
             print_lock.release()
@@ -34,11 +35,10 @@ def main():
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
-    print(request)
+    print(request.recv(2028).decode().split("\r\n"))
     print_lock.acquire()
     start_new_thread(threaded, (request,))
     request_body = request.recv(2028).decode().split("\r\n")
-    print(request_body)
     start_new_thread(threaded, (request,))
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
