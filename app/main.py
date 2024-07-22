@@ -2,6 +2,7 @@
 import socket
 import threading
 import sys
+import os
 
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
@@ -36,18 +37,18 @@ def handle_client(client_socket, addr):
         elif endpoint_body[1] == 'files':
             endpoint_string = endpoint_body[2]
             path_file = sys.argv[2] + endpoint_string
-            with open(path_file, 'r') as file:
-                content = file.read()
-                print(content)
-            print(sys.argv)
-            print(request_body)
-            print(get_body)
-            print(endpoint_body)
-            print(endpoint_string)
-            # response = f"HTTP/1.1 200 OK\r\n" \
-            #            f"Content-Type: application/octet-stream\r\n" \
-            #            f"Content-Length: {length}\r\n\r\n" \
-            #            f"{user_agent_string}".encode()
+
+            try:
+                with open(path_file, 'r') as file:
+                    content = file.read()
+                length = os.path.getsize(path_file)
+                response = f"HTTP/1.1 200 OK\r\n" \
+                           f"Content-Type: application/octet-stream\r\n" \
+                           f"Content-Length: {length}\r\n\r\n" \
+                           f"{content}".encode()
+                print(response)
+            except FileNotFoundError:
+                response = NOTFOUND_RESPONSE
         elif endpoint_body[1] == '':
             response = OK_RESPONSE
         else:
