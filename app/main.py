@@ -37,7 +37,6 @@ def main():
     request = server_socket.accept()[0]
     print(request.recv(2028).decode().split("\r\n"))
     print_lock.acquire()
-    start_new_thread(threaded, (request,))
     request_body = request.recv(2028).decode().split("\r\n")
     start_new_thread(threaded, (request,))
     get_body = request_body[0].split()
