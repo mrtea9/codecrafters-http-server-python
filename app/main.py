@@ -10,13 +10,8 @@ NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 
 def threaded(c, addr):
     print(f"Handling new connection from {addr}")
-    while True:
-        print("Da2")
-        data = c.recv(1024).decode()
-        print("Da1")
-        print(data)
-        print("Da")
-        c.close()
+    c.send(OK_RESPONSE)
+    c.close()
 
 
 def main():
