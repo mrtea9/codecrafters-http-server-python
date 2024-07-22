@@ -11,12 +11,8 @@ NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 def threaded(c, addr):
     print(f"Handling new connection from {addr}")
     while True:
-        print("Da")
-        print(c)
-        print("Da2")
         data = c.recv(1024).decode()
         print(data)
-        print("Da3")
         c.close()
 
 
@@ -29,16 +25,14 @@ def main():
 
     while True:
         c, addr = server_socket.accept()
-        print(c)
         print('Connected to :', addr[0], ':', addr[1])
         thread = threading.Thread(target=threaded, args=(c, addr))
         thread.start()
-        print(threading.active_count() - 1)
+        print(f"Active connections: {threading.active_count() - 1}")
 
         request_body = c.recv(1024).decode().split("\r\n")
         get_body = request_body[0].split()
         endpoint_body = get_body[1].split("/")
-        print(request_body)
 
         # if endpoint_body[1] == 'echo':
         #     endpoint_string = endpoint_body[2]
