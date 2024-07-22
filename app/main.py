@@ -15,9 +15,10 @@ def threaded(c):
         print("Da")
         print(c)
         print("Da2")
-        c.sendall(OK_RESPONSE)
+        data = c.recv(1024).decode()
+        print(data)
         print("Da3")
-        break
+        c.close()
 
 
 def main():
@@ -61,7 +62,6 @@ def main():
         #     response = NOTFOUND_RESPONSE
         #
         # request.sendall(response)
-    server_socket.close()
 
 
 if __name__ == "__main__":
