@@ -17,7 +17,6 @@ def threaded(c):
         print("Da2")
         c.sendall(OK_RESPONSE)
         print("Da3")
-        print_lock.release()
         break
 
 
