@@ -27,10 +27,9 @@ def main():
         thread.start()
         print(f"\nActive connections: {threading.active_count() - 1}")
 
-        request_body = c.recv(1024).decode().split("\r\n")
-        print(request_body)
-        get_body = request_body[0].split()
-        endpoint_body = get_body[1].split("/")
+        # request_body = c.recv(1024).decode().split("\r\n")
+        # get_body = request_body[0].split()
+        # endpoint_body = get_body[1].split("/")
 
         # if endpoint_body[1] == 'echo':
         #     endpoint_string = endpoint_body[2]
