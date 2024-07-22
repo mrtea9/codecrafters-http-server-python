@@ -46,7 +46,6 @@ def handle_client(client_socket, addr):
                            f"Content-Type: application/octet-stream\r\n" \
                            f"Content-Length: {length}\r\n\r\n" \
                            f"{content}".encode()
-                print(response)
             except FileNotFoundError:
                 response = NOTFOUND_RESPONSE
         elif endpoint_body[1] == '':
