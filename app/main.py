@@ -1,6 +1,5 @@
 # Uncomment this to pass the first stage
 import socket
-from _thread import *
 import threading
 
 
@@ -8,10 +7,11 @@ OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
 NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 
 
-def threaded(c, addr):
-    print(f"Handling new connection from {addr}")
-    message = c.recv(1024).decode()
+def handle_client(client_socket, addr):
+    print(f"\nHandling new connection from {addr}")
+    message = client_socket.recv(1024).decode()
     response = OK_RESPONSE
+
     if message:
         request_body = message.split("\r\n")
         get_body = request_body[0].split()
@@ -37,8 +37,8 @@ def threaded(c, addr):
         else:
             response = NOTFOUND_RESPONSE
 
-    c.send(response)
-    c.close()
+    client_socket.send(response)
+    client_socket.close()
 
 
 def main():
@@ -49,8 +49,8 @@ def main():
     server_socket.listen(5)
 
     while True:
-        c, addr = server_socket.accept()
-        thread = threading.Thread(target=threaded, args=(c, addr))
+        client_socket, addr = server_socket.accept()
+        thread = threading.Thread(target=handle_client, args=(client_socket, addr))
         thread.start()
         print(f"\nActive connections: {threading.active_count() - 1}")
 
