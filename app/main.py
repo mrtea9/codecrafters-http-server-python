@@ -10,6 +10,9 @@ NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
 
 def threaded(c, addr):
     print(f"Handling new connection from {addr}")
+    message = c.recv(1024).decode()
+    if message:
+        print(message)
     c.send(OK_RESPONSE)
     c.close()
 
