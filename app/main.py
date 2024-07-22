@@ -11,31 +11,32 @@ def handle_client(client_socket, addr):
     print(f"\nHandling new connection from {addr}")
     message = client_socket.recv(1024).decode()
     response = OK_RESPONSE
+    print(message)
 
-    if message:
-        request_body = message.split("\r\n")
-        get_body = request_body[0].split()
-        endpoint_body = get_body[1].split("/")
-
-        if endpoint_body[1] == 'echo':
-            endpoint_string = endpoint_body[2]
-            length = len(endpoint_string)
-            response = f"HTTP/1.1 200 OK\r\n" \
-                       f"Content-Type: text/plain\r\n" \
-                       f"Content-Length: {length}\r\n\r\n" \
-                       f"{endpoint_string}".encode()
-        elif endpoint_body[1] == 'user-agent':
-            user_agent_body = request_body[2].split()
-            user_agent_string = user_agent_body[1]
-            length = len(user_agent_string)
-            response = f"HTTP/1.1 200 OK\r\n" \
-                       f"Content-Type: text/plain\r\n" \
-                       f"Content-Length: {length}\r\n\r\n" \
-                       f"{user_agent_string}".encode()
-        elif endpoint_body[1] == '':
-            response = OK_RESPONSE
-        else:
-            response = NOTFOUND_RESPONSE
+    # if message:
+    #     request_body = message.split("\r\n")
+    #     get_body = request_body[0].split()
+    #     endpoint_body = get_body[1].split("/")
+    #
+    #     if endpoint_body[1] == 'echo':
+    #         endpoint_string = endpoint_body[2]
+    #         length = len(endpoint_string)
+    #         response = f"HTTP/1.1 200 OK\r\n" \
+    #                    f"Content-Type: text/plain\r\n" \
+    #                    f"Content-Length: {length}\r\n\r\n" \
+    #                    f"{endpoint_string}".encode()
+    #     elif endpoint_body[1] == 'user-agent':
+    #         user_agent_body = request_body[2].split()
+    #         user_agent_string = user_agent_body[1]
+    #         length = len(user_agent_string)
+    #         response = f"HTTP/1.1 200 OK\r\n" \
+    #                    f"Content-Type: text/plain\r\n" \
+    #                    f"Content-Length: {length}\r\n\r\n" \
+    #                    f"{user_agent_string}".encode()
+    #     elif endpoint_body[1] == '':
+    #         response = OK_RESPONSE
+    #     else:
+    #         response = NOTFOUND_RESPONSE
 
     client_socket.send(response)
     client_socket.close()
