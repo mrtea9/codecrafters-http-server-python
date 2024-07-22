@@ -15,14 +15,10 @@ def threaded(c):
         print("Da")
         print(c)
         print("Da2")
-        data = c.recv(1024).decode()
-        print(data)
+        c.sendall(OK_RESPONSE)
         print("Da3")
-        if not data:
-            print_lock.release()
-            break
-        print(data)
-        print("sad")
+        print_lock.release()
+        break
 
 
 def main():
