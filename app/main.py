@@ -28,19 +28,19 @@ def threaded(c):
 
 
 def main():
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    print("Sad")
 
-    # Uncomment this to pass the first stage
+    print("Sad")
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
-    print(request.recv(2028).decode().split("\r\n"))
+
     print_lock.acquire()
-    request_body = request.recv(2028).decode().split("\r\n")
     start_new_thread(threaded, (request,))
+
+    request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
+
     if endpoint_body[1] == 'echo':
         endpoint_string = endpoint_body[2]
         length = len(endpoint_string)
@@ -60,6 +60,7 @@ def main():
         response = OK_RESPONSE
     else:
         response = NOTFOUND_RESPONSE
+
     request.sendall(response)
 
 
