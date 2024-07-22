@@ -16,6 +16,8 @@ def threaded(c):
         print(c)
         print("Da2")
         data = c.recv(1024).decode()
+        print(data)
+        print("Da3")
         if not data:
             print_lock.release()
             break
