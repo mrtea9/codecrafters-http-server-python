@@ -58,6 +58,12 @@ def handle_client(client_socket, addr):
             print(request_body)
             print(method_body)
             print(endpoint_body)
+            if endpoint_body[1] == 'files':
+                endpoint_string = endpoint_body[2]
+                path_file = sys.argv[2] + endpoint_string
+
+                print(endpoint_string)
+                print(path_file)
 
     client_socket.send(response)
     client_socket.close()
