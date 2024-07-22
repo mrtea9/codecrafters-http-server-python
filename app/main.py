@@ -13,6 +13,7 @@ def threaded(c, addr):
     while True:
         data = c.recv(1024).decode()
         print(data)
+        print("Da")
         c.close()
 
 
@@ -25,12 +26,12 @@ def main():
 
     while True:
         c, addr = server_socket.accept()
-        print('Connected to :', addr[0], ':', addr[1])
         thread = threading.Thread(target=threaded, args=(c, addr))
         thread.start()
-        print(f"Active connections: {threading.active_count() - 1}")
+        print(f"\nActive connections: {threading.active_count() - 1}")
 
         request_body = c.recv(1024).decode().split("\r\n")
+        print(request_body)
         get_body = request_body[0].split()
         endpoint_body = get_body[1].split("/")
 
