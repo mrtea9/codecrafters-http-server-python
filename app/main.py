@@ -18,6 +18,7 @@ def handle_client(client_socket, addr):
         request_body = message.split("\r\n")
         get_body = request_body[0].split()
         endpoint_body = get_body[1].split("/")
+        print(request_body)
 
         if endpoint_body[1] == 'echo':
             endpoint_string = endpoint_body[2]
