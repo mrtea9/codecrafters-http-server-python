@@ -12,8 +12,9 @@ print_lock = threading.Lock()
 
 def threaded(c):
     print("Da")
+    print(c)
     while True:
-
+        print("Da2")
         data = c.recv(1024)
         if not data:
             print("Bye")
