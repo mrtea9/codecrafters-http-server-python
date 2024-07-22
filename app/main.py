@@ -25,7 +25,7 @@ def main():
     print("Sad")
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    server_socket.listen()
+    server_socket.listen(5)
 
     while True:
         c, addr = server_socket.accept()
@@ -33,8 +33,6 @@ def main():
 
         print_lock.acquire()
         print('Connected to :', addr[0], ':', addr[1])
-        c.sendall(OK_RESPONSE)
-
         start_new_thread(threaded, (c,))
 
         request_body = c.recv(1024).decode().split("\r\n")
