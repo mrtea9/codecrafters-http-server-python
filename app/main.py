@@ -16,6 +16,7 @@ def threaded(c):
     print("Da2")
     data = c.recv(2028).decode()
     print(data)
+    print("sad")
 
 
 def main():
