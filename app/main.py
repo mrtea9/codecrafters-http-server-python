@@ -1,6 +1,7 @@
 # Uncomment this to pass the first stage
 import socket
 import threading
+import sys
 
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
@@ -33,9 +34,15 @@ def handle_client(client_socket, addr):
                        f"Content-Length: {length}\r\n\r\n" \
                        f"{user_agent_string}".encode()
         elif endpoint_body[1] == 'files':
+            endpoint_string = endpoint_body[2]
             print(request_body)
             print(get_body)
             print(endpoint_body)
+            print(endpoint_string)
+            response = f"HTTP/1.1 200 OK\r\n" \
+                       f"Content-Type: application/octet-stream\r\n" \
+                       f"Content-Length: {length}\r\n\r\n" \
+                       f"{user_agent_string}".encode()
         elif endpoint_body[1] == '':
             response = OK_RESPONSE
         else:
@@ -48,6 +55,7 @@ def handle_client(client_socket, addr):
 def main():
 
     print("Sad")
+    print(sys.argv)
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     server_socket.listen(5)
