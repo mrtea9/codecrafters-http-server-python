@@ -1,8 +1,28 @@
 # Uncomment this to pass the first stage
 import socket
+from _thread import *
+import threading
+
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
 NOTFOUND_RESPONSE = f"HTTP/1.1 404 Not Found\r\n\r\n".encode()
+
+print_lock = threading.Lock()
+
+
+def threaded(c):
+
+    while True:
+
+        data = c.recv(1024)
+        if not data:
+            print("Bye")
+            print_lock.release()
+            break
+
+        print(data)
+
+    c.close()
 
 
 def main():
@@ -13,6 +33,8 @@ def main():
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
+    print_lock.acquire()
+    start_new_thread(threaded, (request,))
     request_body = request.recv(2028).decode().split("\r\n")
     get_body = request_body[0].split()
     endpoint_body = get_body[1].split("/")
