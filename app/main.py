@@ -34,6 +34,8 @@ def handle_client(client_socket, addr):
                        f"{user_agent_string}".encode()
         elif endpoint_body[1] == 'files':
             print(request_body)
+            print(get_body)
+            print(endpoint_body)
         elif endpoint_body[1] == '':
             response = OK_RESPONSE
         else:
