@@ -34,6 +34,7 @@ def main():
 
     server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
     request = server_socket.accept()[0]
+    print(request)
     print_lock.acquire()
     start_new_thread(threaded, (request,))
     request_body = request.recv(2028).decode().split("\r\n")
