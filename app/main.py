@@ -20,9 +20,6 @@ def handle_client(client_socket, addr):
         method_body = request_body[0].split()
         method = method_body[0]
         endpoint_body = method_body[1].split("/")
-        print(request_body)
-        print(method_body)
-        print(endpoint_body)
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
@@ -30,11 +27,17 @@ def handle_client(client_socket, addr):
                 length = len(endpoint_string)
                 if request_body[2]:
                     encoding_body = request_body[2].split()
-                    print(encoding_body)
-                response = f"HTTP/1.1 200 OK\r\n" \
-                           f"Content-Type: text/plain\r\n" \
-                           f"Content-Length: {length}\r\n\r\n" \
-                           f"{endpoint_string}".encode()
+                    encoding_type = encoding_body[1]
+                    response = f"HTTP/1.1 200 OK\r\n" \
+                               f"Content-Type: text/plain\r\n" \
+                               f"Content-Encoding: {encoding_type}\r\n" \
+                               f"Content-Length: {length}\r\n\r\n" \
+                               f"{endpoint_string}".encode()
+                else:
+                    response = f"HTTP/1.1 200 OK\r\n" \
+                               f"Content-Type: text/plain\r\n" \
+                               f"Content-Length: {length}\r\n\r\n" \
+                               f"{endpoint_string}".encode()
             elif endpoint_body[1] == 'user-agent':
                 user_agent_body = request_body[2].split()
                 user_agent_string = user_agent_body[1]
