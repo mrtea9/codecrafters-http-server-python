@@ -23,13 +23,14 @@ def handle_client(client_socket, addr):
         print(request_body)
         print(method_body)
         print(endpoint_body)
-        if request_body[2]:
-            print("da")
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
                 endpoint_string = endpoint_body[2]
                 length = len(endpoint_string)
+                if request_body[2]:
+                    encoding_body = request_body[2].split()
+                    print(encoding_body)
                 response = f"HTTP/1.1 200 OK\r\n" \
                            f"Content-Type: text/plain\r\n" \
                            f"Content-Length: {length}\r\n\r\n" \
