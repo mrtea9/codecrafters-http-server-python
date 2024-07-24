@@ -23,7 +23,7 @@ def handle_client(client_socket, addr):
         print(request_body)
         print(method_body)
         print(endpoint_body)
-        if 'Accept-Encoding' in request_body:
+        if request_body[2]:
             print("da")
 
         if method == 'GET':
