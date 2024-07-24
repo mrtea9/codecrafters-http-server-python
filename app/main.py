@@ -30,6 +30,8 @@ def handle_client(client_socket, addr):
                     encoding_type = 'gzip'
                     compressed_text = gzip.compress(endpoint_string.encode())
                     print(compressed_text)
+                    deccompress = gzip.decompress(compressed_text)
+                    print(deccompress)
                     length = len(compressed_text)
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
