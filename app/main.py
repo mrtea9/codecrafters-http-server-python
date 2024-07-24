@@ -20,6 +20,9 @@ def handle_client(client_socket, addr):
         method_body = request_body[0].split()
         method = method_body[0]
         endpoint_body = method_body[1].split("/")
+        print(request_body)
+        print(method_body)
+        print(endpoint_body)
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
