@@ -26,8 +26,7 @@ def handle_client(client_socket, addr):
                 endpoint_string = endpoint_body[2]
                 length = len(endpoint_string)
                 if request_body[2] and 'gzip' in request_body[2].replace(',', '').split():
-                    encoding_body = request_body[2].split()
-                    encoding_type = encoding_body[1]
+                    encoding_type = 'gzip'
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
                                f"Content-Encoding: {encoding_type}\r\n" \
