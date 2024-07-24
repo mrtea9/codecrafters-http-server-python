@@ -30,7 +30,7 @@ def handle_client(client_socket, addr):
                     encoding_type = 'gzip'
                     compressed_text = gzip.compress(endpoint_string.encode())
                     test = (f"{compressed_text}".encode())
-                    deccompress = gzip.decompress(compressed_text)
+                    deccompress = gzip.decompress(test)
                     print(deccompress.decode())
                     print(test.decode())
                     length = len(compressed_text)
