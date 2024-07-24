@@ -20,6 +20,7 @@ def handle_client(client_socket, addr):
         method_body = request_body[0].split()
         method = method_body[0]
         endpoint_body = method_body[1].split("/")
+        print(request_body)
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
@@ -28,6 +29,7 @@ def handle_client(client_socket, addr):
                 if request_body[2] and request_body[2].split()[1] == 'gzip':
                     encoding_body = request_body[2].split()
                     encoding_type = encoding_body[1]
+                    print(encoding_body)
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
                                f"Content-Encoding: {encoding_type}\r\n" \
