@@ -37,7 +37,7 @@ def handle_client(client_socket, addr):
                                f"Content-Type: text/plain\r\n" \
                                f"Content-Encoding: {encoding_type}\r\n" \
                                f"Content-Length: {length}\r\n\r\n" \
-                               f"{compressed_text}".encode()
+                               f"{compressed_text.decode()}".encode()
                 else:
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
