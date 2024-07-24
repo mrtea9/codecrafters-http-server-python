@@ -21,7 +21,7 @@ def handle_client(client_socket, addr):
         method = method_body[0]
         endpoint_body = method_body[1].split("/")
         print(request_body)
-        print(request_body[2].remove(',').split())
+        print(request_body[2].replace(',', '').split())
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
