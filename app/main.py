@@ -21,12 +21,13 @@ def handle_client(client_socket, addr):
         method = method_body[0]
         endpoint_body = method_body[1].split("/")
         print(request_body)
+        print(request_body[2].split())
 
         if method == 'GET':
             if endpoint_body[1] == 'echo':
                 endpoint_string = endpoint_body[2]
                 length = len(endpoint_string)
-                if request_body[2] and request_body[2].split()[1] == 'gzip':
+                if request_body[2] and 'gzip' in request_body[2].split():
                     encoding_body = request_body[2].split()
                     encoding_type = encoding_body[1]
                     print(encoding_body)
