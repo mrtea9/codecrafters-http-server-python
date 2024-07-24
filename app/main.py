@@ -3,6 +3,7 @@ import socket
 import threading
 import sys
 import os
+import gzip
 
 
 OK_RESPONSE = "HTTP/1.1 200 OK\r\n\r\n".encode()
@@ -27,11 +28,13 @@ def handle_client(client_socket, addr):
                 length = len(endpoint_string)
                 if request_body[2] and 'gzip' in request_body[2].replace(',', '').split():
                     encoding_type = 'gzip'
+                    compressed_text = gzip.compress(endpoint_string)
+                    length = len(compressed_text)
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
                                f"Content-Encoding: {encoding_type}\r\n" \
                                f"Content-Length: {length}\r\n\r\n" \
-                               f"{endpoint_string}".encode()
+                               f"{compressed_text}".encode()
                 else:
                     response = f"HTTP/1.1 200 OK\r\n" \
                                f"Content-Type: text/plain\r\n" \
